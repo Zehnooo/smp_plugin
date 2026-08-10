@@ -10,6 +10,6 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
-        player.sendMessage("Welcome to Season 1!!");
+        player.sendMessage("Welcome to Season 1 of KirkCraft!!");
     }
 }
