@@ -1,0 +1,6 @@
+name: season_core
+version: '${version}'
+
+main: me.zehnooo.season_core.Season_core
+api-version: '26.2'
+load: POSTWORLD
