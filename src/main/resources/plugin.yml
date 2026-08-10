@@ -1,6 +1,6 @@
 name: season_core
 version: '${version}'
-
 main: me.zehnooo.season_core.Season_core
+description: BangCraft SMP Plugin
 api-version: '26.2'
 load: POSTWORLD
