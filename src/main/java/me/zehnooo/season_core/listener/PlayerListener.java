@@ -1,6 +1,6 @@
 package me.zehnooo.season_core.listener;
 
-import org.bukkit.event.Player;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
