@@ -7,11 +7,15 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import me.zehnooo.season_core.season.SeasonManager;
 
 public final class PlayerListener implements Listener {
 
-    private boolean isNetherLocked = true;
-    private boolean isEndLocked = true;
+    private final SeasonManager seasonManager;
+
+    public PlayerListener(SeasonManager seasonManager) {
+        this.seasonManager = seasonManager;
+    }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
@@ -30,12 +34,12 @@ public final class PlayerListener implements Listener {
         Player player = event.getPlayer();
         PlayerTeleportEvent.TeleportCause cause = event.getCause();
 
-        if (cause == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL && isNetherLocked) {
+        if ( cause == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL && seasonManager.isNetherLocked() ) {
             event.setCancelled(true);
             player.sendMessage("You cannot teleport here yet! The Nether Is still sealed...");
         }
 
-        if (cause == PlayerTeleportEvent.TeleportCause.END_PORTAL && isEndLocked) {
+        if (cause == PlayerTeleportEvent.TeleportCause.END_PORTAL && seasonManager.isEndLocked()) {
             event.setCancelled(true);
             player.sendMessage("You cannot teleport here yet! The End Is still sealed...");
         }
