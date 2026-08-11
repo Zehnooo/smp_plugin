@@ -25,7 +25,12 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event){
         Player player = event.getPlayer();
-        String str = String.valueOf(event.getCause());
-        player.sendMessage("Teleport type: " + str);
+        PlayerTeleportEvent.TeleportCause cause = event.getCause();
+
+        if (cause == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL || cause == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
+            event.setCancelled(true);
+            player.sendMessage("You cannot teleport here yet! Dimension Is still sealed...");
+        }
+        player.sendMessage("Teleport type: " + cause);
     }
 }
