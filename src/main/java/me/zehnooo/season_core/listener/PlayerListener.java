@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public final class PlayerListener implements Listener {
 
@@ -19,5 +20,11 @@ public final class PlayerListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
         player.sendMessage("You broke " + event.getBlock().getType().toString());
+    }
+
+    @EventHandler
+    public void PlayerPortalEvent(PlayerTeleportEvent event){
+        Player player = event.getPlayer();
+        player.sendMessage("You have been teleported to " + event.getTo().toString());
     }
 }
