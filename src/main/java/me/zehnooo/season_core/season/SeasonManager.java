@@ -3,20 +3,42 @@ package me.zehnooo.season_core.season;
 import java.time.Instant;
 import java.time.Duration;
 
+import me.zehnooo.season_core.Season_core;
+import org.bukkit.configuration.file.FileConfiguration;
+
+
 public final class SeasonManager {
 
-    private static final long NETHER_UNLOCK_DAY = 8;
-    private static final long END_UNLOCK_DAY = 22;
-    private static final long SEASON_END_DAY = 60;
+    private final long netherUnlockDay;
+    private final long endUnlockDay;
+    private final long seasonEndDay;
+    private final Instant seasonStart;
 
-    private final Instant seasonStart = Instant.parse("2026-08-11T15:00:00Z");
+    public SeasonManager(Season_core plugin, FileConfiguration config) {
+        this.netherUnlockDay = config.getLong("season.nether-unlock-day");
+        this.endUnlockDay = config.getLong("season.end-unlock-day");
+        this.seasonEndDay = config.getLong("season.season-end-day");
+        String start = config.getString("season.start");
+
+        if (start == null || start.isBlank()){
+            Instant now = Instant.now();
+
+            config.set("season.start", now.toString());
+            plugin.saveConfig();
+
+            this.seasonStart = now;
+        } else {
+            this.seasonStart = Instant.parse(start);
+        }
+
+    }
 
     public boolean isNetherLocked() {
-        return getSeasonDay() < NETHER_UNLOCK_DAY;
+        return getSeasonDay() < netherUnlockDay;
     }
 
     public boolean isEndLocked() {
-        return getSeasonDay() < END_UNLOCK_DAY;
+        return getSeasonDay() < endUnlockDay;
     }
 
     public long getSeasonDay(){
@@ -24,11 +46,11 @@ public final class SeasonManager {
     }
 
     public long daysUntilNetherUnlock(){
-        return Math.max(0, NETHER_UNLOCK_DAY - getSeasonDay());
+        return Math.max(0, netherUnlockDay - getSeasonDay());
     }
 
     public long daysUntilEndUnlock(){
-        return Math.max(0,END_UNLOCK_DAY - getSeasonDay());
+        return Math.max(0, endUnlockDay - getSeasonDay());
     }
 
     public String getSeasonPhase(){
@@ -38,11 +60,11 @@ public final class SeasonManager {
     }
 
     public boolean isSeasonOver(){
-        return getSeasonDay() >= SEASON_END_DAY;
+        return getSeasonDay() >= seasonEndDay;
     }
 
     public long daysUntilSeasonEnd(){
-        return Math.max(0, SEASON_END_DAY - getSeasonDay());
+        return Math.max(0, seasonEndDay - getSeasonDay());
     }
 
 }
