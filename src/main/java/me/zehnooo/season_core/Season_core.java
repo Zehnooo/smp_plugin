@@ -16,7 +16,8 @@ public final class Season_core extends JavaPlugin {
         saveDefaultConfig();
 
         SeasonConfigManager configManager = new SeasonConfigManager(this);
-        SeasonManager seasonManager = new SeasonManager(configManager.load());
+        SeasonSettings settings = configManager.load();
+        SeasonManager seasonManager = new SeasonManager(settings);
         PlayerListener playerListener = new PlayerListener(seasonManager);
 
         getServer().getPluginManager().registerEvents(playerListener, this);
