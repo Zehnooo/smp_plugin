@@ -14,9 +14,9 @@ public class SeasonConfigManager {
     public SeasonSettings load() {
         FileConfiguration config = plugin.getConfig();
 
-        long netherUnlockDay = config.getLong("season.nether-unlock-day");
-        long endUnlockDay = config.getLong("season.end-unlock-day");
-        long seasonEndDay = config.getLong("season.end-day");
+        long netherUnlockDay = (config.getLong("season.nether-unlock-day") <= 0) ? 8 : config.getLong("season.nether-unlock-day");
+        long endUnlockDay = (config.getLong("season.end-unlock-day") <= netherUnlockDay) ? netherUnlockDay + 14 : config.getLong("season.end-unlock-day");
+        long seasonEndDay = (config.getLong("season.end-day") <= endUnlockDay) ? endUnlockDay + 28 : config.getLong("season.end-day");
         String startString = config.getString("season.start");
         Instant start;
 
@@ -27,6 +27,7 @@ public class SeasonConfigManager {
         } else {
             start = Instant.parse(startString);
         }
+
 
         return new SeasonSettings(start, netherUnlockDay, endUnlockDay, seasonEndDay);
     }
