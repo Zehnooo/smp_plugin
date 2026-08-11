@@ -1,6 +1,7 @@
 package me.zehnooo.season_core.listener;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,23 +33,22 @@ public final class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event){
+        if (event.isCancelled()) return;
         Player player = event.getPlayer();
         PlayerTeleportEvent.TeleportCause cause = event.getCause();
         Location from = event.getFrom();
         Location to = event.getTo();
 
-        if ( cause == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL && seasonManager.isNetherLocked() ) {
+        if ( to.getWorld().getEnvironment() == World.Environment.NETHER && seasonManager.isNetherLocked() ) {
             event.setCancelled(true);
             player.sendMessage("You cannot teleport here yet! The Nether Is still sealed...");
         }
 
-        if (cause == PlayerTeleportEvent.TeleportCause.END_PORTAL && seasonManager.isEndLocked()) {
+        if ( to.getWorld().getEnvironment() == World.Environment.THE_END && seasonManager.isEndLocked()) {
             event.setCancelled(true);
             player.sendMessage("You cannot teleport here yet! The End Is still sealed...");
         }
         player.sendMessage("Teleport type: " + cause);
-        player.sendMessage("From: " + from);
-        player.sendMessage("To: " + to);
     }
 
 }
