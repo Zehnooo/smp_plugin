@@ -22,11 +22,11 @@ public final class SeasonManager {
     }
 
     public long daysUntilNetherUnlock(){
-        return Math.abs(NETHER_UNLOCK_TIME - getSeasonDay());
+        return NETHER_UNLOCK_TIME - getSeasonDay();
     }
 
     public long daysUntilEndUnlock(){
-        return Math.abs(END_UNLOCK_TIME - getSeasonDay());
+        return END_UNLOCK_TIME - getSeasonDay();
     }
 
 }
