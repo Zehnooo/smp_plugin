@@ -23,6 +23,7 @@ public class SeasonCommand implements CommandExecutor {
         sender.sendMessage("KirkCraft Season 1");
         sender.sendMessage("Nether Locked: " + seasonManager.isNetherLocked());
         sender.sendMessage("End Locked: " + seasonManager.isEndLocked());
+        sender.sendMessage("Season Day: " + seasonManager.getSeasonDay());
         return true;
     }
 }
