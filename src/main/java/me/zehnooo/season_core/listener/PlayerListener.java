@@ -10,6 +10,9 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 public final class PlayerListener implements Listener {
 
+    private boolean isNetherLocked = true;
+    private boolean isEndLocked = true;
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
@@ -27,9 +30,14 @@ public final class PlayerListener implements Listener {
         Player player = event.getPlayer();
         PlayerTeleportEvent.TeleportCause cause = event.getCause();
 
-        if (cause == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL || cause == PlayerTeleportEvent.TeleportCause.END_PORTAL) {
+        if (cause == PlayerTeleportEvent.TeleportCause.NETHER_PORTAL && isNetherLocked) {
             event.setCancelled(true);
-            player.sendMessage("You cannot teleport here yet! Dimension Is still sealed...");
+            player.sendMessage("You cannot teleport here yet! The Nether Is still sealed...");
+        }
+
+        if (cause == PlayerTeleportEvent.TeleportCause.END_PORTAL && isEndLocked) {
+            event.setCancelled(true);
+            player.sendMessage("You cannot teleport here yet! The End Is still sealed...");
         }
         player.sendMessage("Teleport type: " + cause);
     }
