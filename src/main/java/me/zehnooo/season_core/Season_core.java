@@ -11,6 +11,8 @@ public final class Season_core extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
         SeasonManager seasonManager = new SeasonManager(this, getConfig());
         PlayerListener playerListener = new PlayerListener(seasonManager);
 

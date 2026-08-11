@@ -17,7 +17,7 @@ public final class SeasonManager {
     public SeasonManager(Season_core plugin, FileConfiguration config) {
         this.netherUnlockDay = config.getLong("season.nether-unlock-day");
         this.endUnlockDay = config.getLong("season.end-unlock-day");
-        this.seasonEndDay = config.getLong("season.season-end-day");
+        this.seasonEndDay = config.getLong("season.end-day");
         String start = config.getString("season.start");
 
         if (start == null || start.isBlank()){
