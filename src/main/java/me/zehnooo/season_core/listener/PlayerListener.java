@@ -23,9 +23,9 @@ public final class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void PlayerPortalEvent(PlayerTeleportEvent event){
+    public void onPlayerTeleport(PlayerTeleportEvent event){
         Player player = event.getPlayer();
-        event.setCancelled(true);
-        player.sendMessage("Teleporting is disabled");
+        String str = String.valueOf(event.getCause());
+        player.sendMessage("Teleport type: " + str);
     }
 }
