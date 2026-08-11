@@ -25,6 +25,7 @@ public class SeasonCommand implements CommandExecutor {
         sender.sendMessage("Current Season Phase: " + seasonManager.getSeasonPhase());
         sender.sendMessage("Days until Nether Unlock: " + seasonManager.daysUntilNetherUnlock());
         sender.sendMessage("Days until End Unlock: " + seasonManager.daysUntilEndUnlock());
+        sender.sendMessage("Days until Season End: " + seasonManager.daysUntilSeasonEnd());
         return true;
     }
 }
