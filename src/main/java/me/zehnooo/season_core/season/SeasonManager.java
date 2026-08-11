@@ -14,23 +14,11 @@ public final class SeasonManager {
     private final long seasonEndDay;
     private final Instant seasonStart;
 
-    public SeasonManager(Season_core plugin, FileConfiguration config) {
-        this.netherUnlockDay = config.getLong("season.nether-unlock-day");
-        this.endUnlockDay = config.getLong("season.end-unlock-day");
-        this.seasonEndDay = config.getLong("season.end-day");
-        String start = config.getString("season.start");
-
-        if (start == null || start.isBlank()){
-            Instant now = Instant.now();
-
-            config.set("season.start", now.toString());
-            plugin.saveConfig();
-
-            this.seasonStart = now;
-        } else {
-            this.seasonStart = Instant.parse(start);
-        }
-
+    public SeasonManager(SeasonSettings settings) {
+        this.netherUnlockDay = settings.netherUnlockDay();
+        this.endUnlockDay = settings.endUnlockDay();
+        this.seasonEndDay = settings.seasonEndDay();
+        this.seasonStart = settings.start();
     }
 
     public boolean isNetherLocked() {
