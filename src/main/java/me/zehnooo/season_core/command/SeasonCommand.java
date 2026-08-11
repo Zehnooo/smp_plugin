@@ -21,9 +21,8 @@ public class SeasonCommand implements CommandExecutor {
             String[] args
     ) {
         sender.sendMessage("KirkCraft Season 1");
-        sender.sendMessage("Nether Locked: " + seasonManager.isNetherLocked());
-        sender.sendMessage("End Locked: " + seasonManager.isEndLocked());
         sender.sendMessage("Season Day: " + seasonManager.getSeasonDay());
+        sender.sendMessage("Current Season Phase: " + seasonManager.getSeasonPhase());
         sender.sendMessage("Days until Nether Unlock: " + seasonManager.daysUntilNetherUnlock());
         sender.sendMessage("Days until End Unlock: " + seasonManager.daysUntilEndUnlock());
         return true;
