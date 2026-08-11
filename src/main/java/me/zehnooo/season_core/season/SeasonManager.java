@@ -22,11 +22,17 @@ public final class SeasonManager {
     }
 
     public long daysUntilNetherUnlock(){
-        return NETHER_UNLOCK_TIME - getSeasonDay();
+        return Math.max(0, NETHER_UNLOCK_TIME - getSeasonDay());
     }
 
     public long daysUntilEndUnlock(){
-        return END_UNLOCK_TIME - getSeasonDay();
+        return Math.max(0,END_UNLOCK_TIME - getSeasonDay());
+    }
+
+    public String getSeasonPhase(){
+        if (isNetherLocked()) return "Overworld Age";
+        if (isEndLocked()) return "The Underworld";
+        return "The End...";
     }
 
 }
