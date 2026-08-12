@@ -1,4 +1,31 @@
 announcements:
-  nether-unlock-sent: false
-  end-unlock-sent: false
-  season-end-sent: false
+  nether:
+    one-day-reminder:
+      message: "The Nether is one day away!"
+      sent: false
+    one-week-reminder:
+      message: "The Nether is one week away!"
+      sent: false
+    unlock:
+      message: "The Nether has been unsealed!"
+      sent: false
+  end:
+    one-day-reminder:
+      message: "The End is one day away!"
+      sent: false
+    one-week-reminder:
+      message: "The End is one week away!"
+      sent: false
+    unlock:
+      message: "The End has been unsealed!"
+      sent: false
+  season:
+    one-day-reminder:
+      message: "The Season end is one day away!"
+      sent: false
+    one-week-reminder:
+      message: "The Season end is one week away!"
+      sent: false
+    end:
+      message: "The Season has ended! Thanks for playing!"
+      sent: false

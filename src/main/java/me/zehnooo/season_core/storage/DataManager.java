@@ -1,6 +1,7 @@
 package me.zehnooo.season_core.storage;
 import java.io.File;
 
+
 import me.zehnooo.season_core.Season_core;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -33,12 +34,21 @@ public class DataManager {
         }
     }
 
-    public boolean isNetherMsgSent() {
-        return data.getBoolean("announcements.nether-msg-sent");
-    }
-    public void setNetherMsgSent(boolean value) {
-        data.set("announcements.nether-msg-sent", value);
+    private static final String DATA_PREFIX = "announcements.";
+    private static final String MSG_SUFFIX = ".message";
+    private static final String SENT_SUFFIX = ".sent";
+
+    public String getMessage(String phase, String event) {
+        return data.getString(DATA_PREFIX + phase + "." + event + MSG_SUFFIX);
     }
 
+    public boolean isSent(String phase, String event) {
+        return data.getBoolean(DATA_PREFIX + phase + "." + event + SENT_SUFFIX);
+    }
+
+    public void setSent(String phase, String event, boolean value) {
+        data.set(DATA_PREFIX + phase + "." + event + SENT_SUFFIX, value);
+        save();
+    }
 
 }

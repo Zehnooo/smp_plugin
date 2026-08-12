@@ -1,5 +1,6 @@
 package me.zehnooo.season_core;
 
+import me.zehnooo.season_core.announcement.AnnouncementService;
 import me.zehnooo.season_core.command.SeasonCommand;
 import me.zehnooo.season_core.listener.PlayerListener;
 import me.zehnooo.season_core.season.SeasonConfigManager;
@@ -18,7 +19,10 @@ public final class Season_core extends JavaPlugin {
 
         SeasonConfigManager configManager = new SeasonConfigManager(this);
         SeasonSettings settings = configManager.load();
+
         DataManager dataManager = new DataManager(this);
+        dataManager.reload();
+
         SeasonManager seasonManager = new SeasonManager(settings);
         PlayerListener playerListener = new PlayerListener(seasonManager);
 
@@ -26,7 +30,9 @@ public final class Season_core extends JavaPlugin {
 
         SeasonCommand seasonCommand = new SeasonCommand(seasonManager);
         Objects.requireNonNull(getCommand("season")).setExecutor(seasonCommand);
-        dataManager.reload();
+
+        AnnouncementService announcementService = new AnnouncementService(seasonManager, dataManager);
+        getServer().getScheduler().runTaskTimer(this, announcementService::check, 20L, 20L * 60 * 180);
 
         getLogger().info("Season Core Active...");
     }
