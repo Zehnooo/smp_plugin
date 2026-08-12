@@ -5,6 +5,7 @@ import me.zehnooo.season_core.listener.PlayerListener;
 import me.zehnooo.season_core.season.SeasonConfigManager;
 import me.zehnooo.season_core.season.SeasonManager;
 import me.zehnooo.season_core.season.SeasonSettings;
+import me.zehnooo.season_core.storage.DataManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -17,6 +18,7 @@ public final class Season_core extends JavaPlugin {
 
         SeasonConfigManager configManager = new SeasonConfigManager(this);
         SeasonSettings settings = configManager.load();
+        DataManager dataManager = new DataManager(this);
         SeasonManager seasonManager = new SeasonManager(settings);
         PlayerListener playerListener = new PlayerListener(seasonManager);
 
