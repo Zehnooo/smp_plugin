@@ -26,6 +26,7 @@ public final class Season_core extends JavaPlugin {
 
         SeasonCommand seasonCommand = new SeasonCommand(seasonManager);
         Objects.requireNonNull(getCommand("season")).setExecutor(seasonCommand);
+        dataManager.reload();
 
         getLogger().info("Season Core Active...");
     }
