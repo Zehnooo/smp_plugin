@@ -2,6 +2,8 @@ package me.zehnooo.season_core.season;
 
 import java.time.Instant;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public final class SeasonManager {
 
@@ -9,12 +11,14 @@ public final class SeasonManager {
     private final long endUnlockDay;
     private final long seasonEndDay;
     private final Instant seasonStart;
+    private final java.time.ZoneId timezone;
 
     public SeasonManager(SeasonSettings settings) {
         this.netherUnlockDay = settings.netherUnlockDay();
         this.endUnlockDay = settings.endUnlockDay();
         this.seasonEndDay = settings.seasonEndDay();
         this.seasonStart = settings.start();
+        this.timezone = settings.timezone();
     }
 
     public boolean isNetherLocked() {
@@ -26,7 +30,9 @@ public final class SeasonManager {
     }
 
     public long getSeasonDay(){
-        return Duration.between(seasonStart, Instant.now()).toDays() + 1;
+        LocalDate start = seasonStart.atZone(timezone).toLocalDate();
+        LocalDate today = Instant.now().atZone(timezone).toLocalDate();
+        return ChronoUnit.DAYS.between(start, today) + 1;
     }
 
     public long daysUntilNetherUnlock(){
