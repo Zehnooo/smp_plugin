@@ -30,9 +30,9 @@ public final class PlayerListener implements Listener {
 
         player.sendMessage("Welcome to Season 1 of KirkCraft!!");
         player.sendMessage("Season Day: " + seasonDay);
-        if (daysUntilNetherUnlock > 0) player.sendMessage("Days until Nether Unlock: " + daysUntilNetherUnlock);
-        if (daysUntilEndUnlock > 0) player.sendMessage("Days until End Unlock: " + daysUntilEndUnlock);
-        player.sendMessage("Days until Season End: " + daysUntilSeasonEnd);
+        if (daysUntilNetherUnlock > 0) player.sendMessage("Nether unlocks in " + daysUntilNetherUnlock + "days");
+        if (daysUntilEndUnlock > 0) player.sendMessage("End unlocks in " + daysUntilEndUnlock + "days");
+        player.sendMessage("Season ends in " + daysUntilSeasonEnd + "days");
 
     }
 
