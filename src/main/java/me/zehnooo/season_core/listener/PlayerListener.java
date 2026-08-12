@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import me.zehnooo.season_core.season.SeasonManager;
@@ -22,29 +23,46 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
+        final long seasonDay = seasonManager.getSeasonDay();
+        final long daysUntilNetherUnlock = seasonManager.daysUntilNetherUnlock();
+        final long daysUntilEndUnlock = seasonManager.daysUntilEndUnlock();
+        final long daysUntilSeasonEnd = seasonManager.daysUntilSeasonEnd();
+
         player.sendMessage("Welcome to Season 1 of KirkCraft!!");
+        player.sendMessage("Season Day: " + seasonDay);
+        if (daysUntilNetherUnlock > 0) player.sendMessage("Days until Nether Unlock: " + daysUntilNetherUnlock);
+        if (daysUntilEndUnlock > 0) player.sendMessage("Days until End Unlock: " + daysUntilEndUnlock);
+        player.sendMessage("Days until Season End: " + daysUntilSeasonEnd);
+
     }
 
+    /*
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
         player.sendMessage("You broke " + event.getBlock().getType().toString());
     }
+     */
 
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event){
+
         if (event.isCancelled()) return;
+
         Player player = event.getPlayer();
         PlayerTeleportEvent.TeleportCause cause = event.getCause();
         Location from = event.getFrom();
-        Location to = event.getTo();
+        World to = event.getTo().getWorld();
+        if (to == null) { return; }
+        World.Environment env = to.getEnvironment();
 
-        if ( to.getWorld().getEnvironment() == World.Environment.NETHER && seasonManager.isNetherLocked() ) {
+        if ( env == World.Environment.NETHER && seasonManager.isNetherLocked() ) {
+
             event.setCancelled(true);
             player.sendMessage("You cannot teleport here yet! The Nether Is still sealed...");
         }
 
-        if ( to.getWorld().getEnvironment() == World.Environment.THE_END && seasonManager.isEndLocked()) {
+        if ( env == World.Environment.THE_END && seasonManager.isEndLocked()) {
             event.setCancelled(true);
             player.sendMessage("You cannot teleport here yet! The End Is still sealed...");
         }

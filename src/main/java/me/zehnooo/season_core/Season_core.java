@@ -32,7 +32,7 @@ public final class Season_core extends JavaPlugin {
         Objects.requireNonNull(getCommand("season")).setExecutor(seasonCommand);
 
         AnnouncementService announcementService = new AnnouncementService(seasonManager, dataManager);
-        getServer().getScheduler().runTaskTimer(this, announcementService::check, 20L, 20L);
+        getServer().getScheduler().runTaskTimer(this, announcementService::check, 20L, 20L * 60 * 60);
 
         getLogger().info("Season Core Active...");
     }
