@@ -46,7 +46,6 @@ public final class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event){
-
         if (event.isCancelled()) return;
 
         Player player = event.getPlayer();
@@ -57,7 +56,6 @@ public final class PlayerListener implements Listener {
         World.Environment env = to.getEnvironment();
 
         if ( env == World.Environment.NETHER && seasonManager.isNetherLocked() ) {
-
             event.setCancelled(true);
             player.sendMessage("You cannot teleport here yet! The Nether Is still sealed...");
         }
