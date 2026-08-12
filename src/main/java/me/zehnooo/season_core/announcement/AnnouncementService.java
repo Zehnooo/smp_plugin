@@ -17,7 +17,6 @@ public final class AnnouncementService {
 
     public void check() {
         //Nether Messages
-        Bukkit.broadcast(Component.text("Test Message"));
         trySend("nether", "unlock", seasons.daysUntilNetherUnlock() == 0);
         trySend("nether", "one-week-reminder", seasons.daysUntilNetherUnlock() == 7);
         trySend("nether", "one-day-reminder", seasons.daysUntilNetherUnlock() == 1);
