@@ -53,6 +53,7 @@ public class SeasonCommand implements CommandExecutor {
             for (RelicType type : RelicType.values()){
                 player.getInventory().addItem(relicManager.create(type));
             }
+            return true;
         }
 
 
