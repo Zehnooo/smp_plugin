@@ -42,7 +42,7 @@ public class RelicListener implements Listener {
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player)) return;
         Player player = (Player) event.getDamager();
-        player.sendMessage(player + " attacked " + event.getEntity().getType().toString());
+        player.sendMessage(player + " attacked " + event.getEntity().toString());
     }
 
     private RelicType checkForRelic(Player player) {
