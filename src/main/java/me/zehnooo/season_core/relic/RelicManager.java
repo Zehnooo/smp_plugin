@@ -30,4 +30,22 @@ public class RelicManager {
         return item;
     }
 
+    public boolean isRelic(ItemStack item){
+        if (item == null || !item.hasItemMeta()) return false;
+        return item.getItemMeta().getPersistentDataContainer().has(typeKey, PersistentDataType.STRING);
+    }
+
+    public RelicType getType(ItemStack item) {
+        if (!isRelic(item)) return null;
+        String raw = item.getItemMeta().getPersistentDataContainer().get(typeKey, PersistentDataType.STRING);
+
+        try {
+            return RelicType.valueOf(raw);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+
+    }
+
+
 }
