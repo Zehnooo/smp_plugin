@@ -5,19 +5,6 @@ import org.bukkit.potion.PotionEffectType;
 
 public enum RelicType {
 
-
-    /*
-    NAME(Material.ITEM, "")
-    Emberblade - Right Click gives fire resistance for 6 seconds. Successful crit applies fire aspect to hit entity for 3 seconds
-    Windspear - Right click grants user speed 2 for 6 seconds
-    Axe of Crippling - Successful crit applies weakness to hit entity for 3 seconds
-    Phase Bow - Successful hit teleports user to target
-    Horn of Health - Gives regen to user for 5 seconds
-    The Ward - Blocking gives resistance for 6 seconds
-    Frost Shard - Applies freezing to nearby enemies
-    Cloak - Gives user invisibility for 8 seconds. Attacking or taking damage removes invis
-     */
-
     EMBER_BLADE(Material.NETHERITE_SWORD, "Ember Blade", PotionEffectType.FIRE_RESISTANCE, 20 * 6, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.SELF),
     WIND_SPEAR(Material.NETHERITE_SPEAR, "Wind Spear", PotionEffectType.SPEED, 20 * 6, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.SELF),
     WAR_AXE(Material.NETHERITE_AXE, "War Axe", PotionEffectType.WEAKNESS, 20 * 3, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.VICTIM),
