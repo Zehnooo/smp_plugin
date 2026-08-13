@@ -34,6 +34,6 @@ public class RelicListener implements Listener {
 
         RelicType type = relicManager.getType(hand);
         if (type == null || type.effect() == null) return;
-        player.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier()));
+        player.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
     }
 }
