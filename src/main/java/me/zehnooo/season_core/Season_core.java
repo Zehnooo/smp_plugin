@@ -3,6 +3,7 @@ package me.zehnooo.season_core;
 import me.zehnooo.season_core.announcement.AnnouncementService;
 import me.zehnooo.season_core.command.SeasonCommand;
 import me.zehnooo.season_core.listener.PlayerListener;
+import me.zehnooo.season_core.listener.RelicListener;
 import me.zehnooo.season_core.relic.RelicManager;
 import me.zehnooo.season_core.season.SeasonConfigManager;
 import me.zehnooo.season_core.season.SeasonManager;
@@ -32,6 +33,8 @@ public final class Season_core extends JavaPlugin {
         RelicManager relicManager = new RelicManager(this);
         SeasonCommand seasonCommand = new SeasonCommand(seasonManager, relicManager);
         Objects.requireNonNull(getCommand("season")).setExecutor(seasonCommand);
+
+        RelicListener relicListener = new RelicListener(relicManager);
 
         AnnouncementService announcementService = new AnnouncementService(seasonManager, dataManager);
         getServer().getScheduler().runTaskTimer(this, announcementService::check, 20L, 20L * 60 * 60);
