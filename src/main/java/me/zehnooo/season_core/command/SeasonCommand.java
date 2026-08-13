@@ -49,7 +49,7 @@ public class SeasonCommand implements CommandExecutor {
         }
 
         if (args.length == 2 && args[0].equalsIgnoreCase("relic") && args[1].equalsIgnoreCase("give")){
-            if (!(sender instanceof Player player)) return;
+            if (!(sender instanceof Player player)) return true;
             for (RelicType type : RelicType.values()){
                 player.getInventory().addItem(relicManager.create(type));
             }
