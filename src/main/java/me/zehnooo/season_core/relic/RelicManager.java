@@ -22,7 +22,7 @@ public class RelicManager {
         ItemStack item = new ItemStack(type.material());
         ItemMeta meta = item.getItemMeta();
 
-        meta.displayName(Component.text(type.displayName()));
+        meta.displayName(Component.text(type.displayName(), NamedTextColor.RED));
         meta.getPersistentDataContainer().set(typeKey, PersistentDataType.STRING, type.name());
         meta.getPersistentDataContainer().set(uuidKey, PersistentDataType.STRING, UUID.randomUUID().toString());
 
