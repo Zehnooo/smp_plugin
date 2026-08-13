@@ -1,6 +1,10 @@
 package me.zehnooo.season_core.command;
 
+import me.zehnooo.season_core.relic.RelicManager;
 import me.zehnooo.season_core.season.SeasonManager;
+import me.zehnooo.season_core.relic.RelicType;
+
+import org.bukkit.entity.Player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,9 +12,11 @@ import org.bukkit.command.CommandSender;
 public class SeasonCommand implements CommandExecutor {
 
     private final SeasonManager seasonManager;
+    private final RelicManager relicManager;
 
-    public SeasonCommand(SeasonManager seasonManager) {
+    public SeasonCommand(SeasonManager seasonManager, RelicManager relicManager) {
         this.seasonManager = seasonManager;
+        this.relicManager = relicManager;
     }
 
     @Override
@@ -20,6 +26,14 @@ public class SeasonCommand implements CommandExecutor {
             String label,
             String[] args
     ) {
+        if (args.length > 0 && args[0].equalsIgnoreCase("relic")){
+            if (!(sender instanceof Player player)){
+                sender.sendMessage("You must be a player to use this command!");
+                return true;
+            }
+            player.getInventory().addItem(relicManager.create(RelicType.EMBER_BLADE));
+            player.sendMessage("Gave Ember Blade");
+        }
         sender.sendMessage("KirkCraft Season 1");
         sender.sendMessage("Season Day: " + seasonManager.getSeasonDay());
         sender.sendMessage("Current Season Phase: " + seasonManager.getSeasonPhase());
