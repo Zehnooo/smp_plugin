@@ -48,7 +48,7 @@ public class RelicListener implements Listener {
         boolean isCrit = event.isCritical();
         RelicType type = checkForRelic(player);
         if (type == null) return;
-        if (type.trigger() != RelicTrigger.HIT && type.trigger() != RelicTrigger.CRIT) return;
+        // if (type.trigger() != RelicTrigger.HIT && type.trigger() != RelicTrigger.CRIT) return;
 
 
 
