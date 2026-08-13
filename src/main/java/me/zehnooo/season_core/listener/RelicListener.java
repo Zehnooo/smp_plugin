@@ -41,7 +41,7 @@ public class RelicListener implements Listener {
         if (type.trigger() != RelicTrigger.RIGHT_CLICK) return;
 
         switch (type.target()){
-            case type.target() == RelicTarget.SELF
+            case RelicTarget.SELF:
                 player.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
                 break;
         }
