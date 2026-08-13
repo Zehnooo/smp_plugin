@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.inventory.ItemStack;
 
 public class SeasonCommand implements CommandExecutor {
 
@@ -36,13 +37,14 @@ public class SeasonCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length > 1 && args[1].equalsIgnoreCase("check")){
+        if (args.length > 1 && args[0].equalsIgnoreCase("relic") && args[1].equalsIgnoreCase("check")){
             if (!(sender instanceof Player player)){
                 sender.sendMessage("You must be a player to use this command!");
                 return true;
             }
-            player.sendMessage("Relic: " + relicManager.isRelic(player.getInventory().getItemInMainHand()));
-            player.sendMessage("Type: " + relicManager.getType(player.getInventory().getItemInMainHand()));
+            ItemStack hand = player.getInventory().getItemInMainHand();
+            player.sendMessage("Relic: " + relicManager.isRelic(hand));
+            player.sendMessage("Type: " + relicManager.getType(hand));
             return true;
         }
 
