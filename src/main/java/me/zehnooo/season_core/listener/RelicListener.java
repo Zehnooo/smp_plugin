@@ -22,9 +22,11 @@ public class RelicListener implements Listener {
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
+
         Action action = event.getAction();
         if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) return;
         Player player = event.getPlayer();
+        player.sendMessage("right click received");
         ItemStack hand = player.getInventory().getItemInMainHand();
         if (!relicManager.isRelic(hand)) return;
         player.sendMessage(relicManager.getType(hand).toString());
