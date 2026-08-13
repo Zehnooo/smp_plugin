@@ -35,6 +35,7 @@ public final class Season_core extends JavaPlugin {
         Objects.requireNonNull(getCommand("season")).setExecutor(seasonCommand);
 
         RelicListener relicListener = new RelicListener(relicManager);
+        getServer().getPluginManager().registerEvents(relicListener, this);
 
         AnnouncementService announcementService = new AnnouncementService(seasonManager, dataManager);
         getServer().getScheduler().runTaskTimer(this, announcementService::check, 20L, 20L * 60 * 60);
