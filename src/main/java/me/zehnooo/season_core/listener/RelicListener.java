@@ -1,12 +1,14 @@
 package me.zehnooo.season_core.listener;
 
 import me.zehnooo.season_core.relic.RelicManager;
+import me.zehnooo.season_core.relic.RelicTrigger;
 import me.zehnooo.season_core.relic.RelicType;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.EquipmentSlot;
@@ -29,11 +31,22 @@ public class RelicListener implements Listener {
         if (event.getHand() != EquipmentSlot.HAND) return;
         Player player = event.getPlayer();
 
-        ItemStack hand = player.getInventory().getItemInMainHand();
-        if (!relicManager.isRelic(hand)) return;
+        RelicType type = checkForRelic(player);
 
-        RelicType type = relicManager.getType(hand);
         if (type == null || type.effect() == null) return;
+        if (type.trigger() != RelicTrigger.RIGHT_CLICK) return;
         player.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
     }
+
+    @EventHandler
+    public void onPlayerAttack(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player)) return;
+        Player player = (Player) event.getDamager();
+        player.sendMessage(player + " attacked " + event.getEntity().getType().toString());
+    }
+
+    private RelicType checkForRelic(Player player) {
+        return relicManager.getType(player.getInventory().getItemInMainHand());
+    }
+
 }
