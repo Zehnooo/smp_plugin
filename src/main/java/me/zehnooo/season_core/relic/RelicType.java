@@ -7,7 +7,7 @@ public enum RelicType {
 
     EMBER_BLADE(Material.NETHERITE_SWORD, "Ember Blade", PotionEffectType.FIRE_RESISTANCE, 20 * 6, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.SELF),
     WIND_SPEAR(Material.NETHERITE_SPEAR, "Wind Spear", PotionEffectType.SPEED, 20 * 6, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.SELF),
-    WAR_AXE(Material.NETHERITE_AXE, "War Axe", PotionEffectType.WEAKNESS, 20 * 3, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.VICTIM),
+    WAR_AXE(Material.NETHERITE_AXE, "War Axe", PotionEffectType.WEAKNESS, 20 * 3, 1, RelicTrigger.CRIT, RelicTarget.VICTIM),
     PHASE_BOW(Material.BOW, "Phase Bow", null, 0, 0, RelicTrigger.HIT, RelicTarget.SELF),
     HORN_OF_HEALTH(Material.GOAT_HORN, "Horn of Health", PotionEffectType.REGENERATION, 20 * 5, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.TEAM),
     THE_WARD(Material.SHIELD, "The Ward", PotionEffectType.RESISTANCE, 20 * 6, 1, RelicTrigger.BLOCK, RelicTarget.SELF),

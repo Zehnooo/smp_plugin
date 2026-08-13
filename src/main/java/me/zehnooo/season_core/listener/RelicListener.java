@@ -4,6 +4,7 @@ import me.zehnooo.season_core.relic.RelicManager;
 import me.zehnooo.season_core.relic.RelicTrigger;
 import me.zehnooo.season_core.relic.RelicType;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
@@ -41,8 +42,17 @@ public class RelicListener implements Listener {
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player)) return;
+
         Player player = (Player) event.getDamager();
-        player.sendMessage(player + " attacked " + event.getEntity().toString());
+        Entity entity = event.getEntity();
+        boolean isCrit = event.isCritical();
+        RelicType type = checkForRelic(player);
+        if (type == null) return;
+        if (type.trigger() != RelicTrigger.HIT && type.trigger() != RelicTrigger.CRIT) return;
+
+
+
+        player.sendMessage("Hit: " + isCrit + " vs " + entity);
     }
 
     private RelicType checkForRelic(Player player) {
