@@ -35,6 +35,17 @@ public class SeasonCommand implements CommandExecutor {
             player.sendMessage("Gave Ember Blade");
             return true;
         }
+
+        if (args.length > 1 && args[1].equalsIgnoreCase("check")){
+            if (!(sender instanceof Player player)){
+                sender.sendMessage("You must be a player to use this command!");
+                return true;
+            }
+            player.sendMessage("Relic: " + relicManager.isRelic(player.getInventory().getItemInMainHand()));
+            player.sendMessage("Type: " + relicManager.getType(player.getInventory().getItemInMainHand()));
+            return true;
+        }
+
         if (args.length == 0){
             sender.sendMessage("KirkCraft Season 1");
             sender.sendMessage("Season Day: " + seasonManager.getSeasonDay());
