@@ -28,9 +28,12 @@ public class RelicListener implements Listener {
         if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) return;
         if (event.getHand() != EquipmentSlot.HAND) return;
         Player player = event.getPlayer();
-        player.sendMessage("right click received");
+
         ItemStack hand = player.getInventory().getItemInMainHand();
         if (!relicManager.isRelic(hand)) return;
-        player.sendMessage(relicManager.getType(hand).toString());
+
+        RelicType type = relicManager.getType(hand);
+        if (type == null || type.effect() == null) return;
+        player.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier()));
     }
 }
