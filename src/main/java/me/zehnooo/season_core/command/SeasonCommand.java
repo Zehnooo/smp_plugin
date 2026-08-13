@@ -48,6 +48,12 @@ public class SeasonCommand implements CommandExecutor {
             return true;
         }
 
+        if (args.length == 2 && args[0].equalsIgnoreCase("relic") && args[1].equalsIgnoreCase("give")){
+            for (RelicType type : RelicType.values()){
+                player.getInventory().addItem(relicManager.create(type));
+            }
+        }
+
 
         if (args.length == 0){
             sender.sendMessage("KirkCraft Season 1");
