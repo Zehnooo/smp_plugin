@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import java.util.UUID;
+import java.util.List;
 
 public class RelicManager {
 
@@ -25,6 +26,7 @@ public class RelicManager {
         ItemMeta meta = item.getItemMeta();
 
         meta.displayName(Component.text(type.displayName(), NamedTextColor.RED));
+        meta.lore(List.of(Component.text(type.description(), NamedTextColor.GOLD)));
         meta.getPersistentDataContainer().set(typeKey, PersistentDataType.STRING, type.name());
         meta.getPersistentDataContainer().set(uuidKey, PersistentDataType.STRING, UUID.randomUUID().toString());
 
