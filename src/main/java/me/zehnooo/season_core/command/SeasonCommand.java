@@ -27,8 +27,8 @@ public class SeasonCommand implements CommandExecutor {
             String label,
             String[] args
     ) {
-        if (args.length > 0 && args[0].equalsIgnoreCase("relic")){
-            if (!(sender instanceof Player player)){
+        if (args.length == 1 && args[0].equalsIgnoreCase("relic")){
+            if (!(sender instanceof Player player)) {
                 sender.sendMessage("You must be a player to use this command!");
                 return true;
             }
@@ -37,7 +37,7 @@ public class SeasonCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length > 1 && args[0].equalsIgnoreCase("relic") && args[1].equalsIgnoreCase("check")){
+        if (args.length == 2 && args[0].equalsIgnoreCase("relic") && args[1].equalsIgnoreCase("check")){
             if (!(sender instanceof Player player)){
                 sender.sendMessage("You must be a player to use this command!");
                 return true;
@@ -47,6 +47,7 @@ public class SeasonCommand implements CommandExecutor {
             player.sendMessage("Type: " + relicManager.getType(hand));
             return true;
         }
+
 
         if (args.length == 0){
             sender.sendMessage("KirkCraft Season 1");
