@@ -31,6 +31,7 @@ public class RelicManager {
         meta.lore(List.of(Component.text(type.description(), NamedTextColor.GOLD)));
         meta.getPersistentDataContainer().set(typeKey, PersistentDataType.STRING, type.name());
         meta.getPersistentDataContainer().set(uuidKey, PersistentDataType.STRING, UUID.randomUUID().toString());
+        meta.setEnchantmentGlintOverride(true);
 
         item.setItemMeta(meta);
         return item;
