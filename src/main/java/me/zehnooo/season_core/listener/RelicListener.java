@@ -67,11 +67,13 @@ public class RelicListener implements Listener {
         if (!(event.getEntity() instanceof LivingEntity entity)) return;
 
         Player player;
+        boolean fromArrow = false;
 
         if (event.getDamager() instanceof Player damager) {
             player = damager;
         } else if (event.getDamager() instanceof AbstractArrow arrow && arrow.getShooter() instanceof Player shooter) {
             player = shooter;
+            fromArrow = true;
         } else {
             return;
         }
@@ -82,6 +84,7 @@ public class RelicListener implements Listener {
 
         switch (type.displayName()){
             case "Gandiva":
+                if (!fromArrow) break;
                 Location loc = getLocation(entity);
                 player.teleportAsync(loc)
                         .thenAccept(res -> {
