@@ -45,6 +45,11 @@ public class RelicListener implements Listener {
             case RelicTarget.SELF:
                 player.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
                 break;
+
+            case RelicTarget.VICTIM:
+                LivingEntity victim = getNearestEntity(player, 5);
+                if (victim != null) victim.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+                break;
         }
 
     }
@@ -84,6 +89,20 @@ public class RelicListener implements Listener {
 
     private Location getLocation(Entity entity) {
         return new Location(entity.getWorld(), entity.getLocation().getX(), entity.getLocation().getY(), entity.getLocation().getZ());
+    }
+
+    private LivingEntity getNearestEntity(Player player, double range){
+        LivingEntity closest = null;
+        double area = range * range;
+        for (Entity entity : player.getNearbyEntities(range, range, range)) {
+            if (entity instanceof LivingEntity target) {
+                double distance = player.getLocation().distanceSquared(entity.getLocation());
+                if (distance < area && (closest == null || target.getLocation().distanceSquared(player.getLocation()) < closest.getLocation().distanceSquared(player.getLocation()))) {
+                    closest = target;
+                }
+            }
+        }
+        return closest;
     }
 
 }
