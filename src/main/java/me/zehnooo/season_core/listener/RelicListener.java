@@ -6,6 +6,7 @@ import me.zehnooo.season_core.relic.RelicTrigger;
 import me.zehnooo.season_core.relic.RelicType;
 
 import org.bukkit.Location;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -62,7 +63,7 @@ public class RelicListener implements Listener {
 
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player player) || !(event.getEntity() instanceof LivingEntity entity)) return;
+        if (!(event.getDamager() instanceof Player player) || !(event.getEntity() instanceof LivingEntity entity) || !(event.getDamager() instanceof AbstractArrow arrow)) return;
 
         RelicType type = checkForRelic(player);
         if (type == null) return;
