@@ -44,6 +44,7 @@ public class RelicListener implements Listener {
         switch (type.target()){
             case RelicTarget.SELF:
                 player.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+                player.sendMessage("Granted " + type.effect() + " to " + player.getName() + " using " + type.displayName());
                 break;
 
             case RelicTarget.VICTIM:
@@ -53,7 +54,7 @@ public class RelicListener implements Listener {
                     break;
                 }
                 victim.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
-                player.sendMessage("Applied effect to " + victim.getName());
+                player.sendMessage("Granted " + type.effect() + " to " + victim.getName() + " using " + type.displayName());
                 break;
         }
 
@@ -84,6 +85,7 @@ public class RelicListener implements Listener {
                 boolean isCrit = event.isCritical();
                 if (!isCrit) break;
                 entity.addPotionEffect( new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+                player.sendMessage("Granted " + type.effect() + " to " + entity.getName() + " using " + type.displayName());
                 break;
         }
     }
