@@ -48,7 +48,12 @@ public class RelicListener implements Listener {
 
             case RelicTarget.VICTIM:
                 LivingEntity victim = getNearestEntity(player, 5);
-                if (victim != null) victim.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+                if (victim == null) {
+                    player.sendMessage("Could not find a target.");
+                    break;
+                }
+                victim.addPotionEffect(new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+                player.sendMessage("Applied effect to " + victim.getName());
                 break;
         }
 
