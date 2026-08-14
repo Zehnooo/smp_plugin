@@ -2,6 +2,8 @@ package me.zehnooo.season_core.relic;
 
 import me.zehnooo.season_core.Season_core;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -50,6 +52,5 @@ public class RelicManager {
         }
 
     }
-
 
 }

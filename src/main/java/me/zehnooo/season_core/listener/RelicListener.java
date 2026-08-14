@@ -63,7 +63,18 @@ public class RelicListener implements Listener {
 
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player player) || !(event.getEntity() instanceof LivingEntity entity) || !(event.getDamager() instanceof AbstractArrow arrow)) return;
+
+        if (!(event.getEntity() instanceof LivingEntity entity)) return;
+
+        Player player;
+
+        if (event.getDamager() instanceof Player damager) {
+            player = damager;
+        } else if (event.getDamager() instanceof AbstractArrow arrow && arrow.getShooter() instanceof Player shooter) {
+            player = shooter;
+        } else {
+            return;
+        }
 
         RelicType type = checkForRelic(player);
         if (type == null) return;
