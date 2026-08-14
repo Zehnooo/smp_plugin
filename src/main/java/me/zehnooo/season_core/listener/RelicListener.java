@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.EquipmentSlot;
@@ -49,7 +50,7 @@ public class RelicListener implements Listener {
                 break;
 
             case RelicTarget.VICTIM:
-                LivingEntity victim = getNearestEntity(player, 5);
+                LivingEntity victim = getNearestEntity(player, 10);
                 if (victim == null) {
                     player.sendMessage("Could not find a target.");
                     break;
@@ -102,6 +103,12 @@ public class RelicListener implements Listener {
                 entity.addPotionEffect( new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
                 player.sendMessage("Granted " + type.effect() + " to " + entity.getName() + " using " + type.displayName());
                 break;
+
+            case "Aegis":
+                if (event.getFinalDamage() <= 0) {
+                    player.addPotionEffect( new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+                break;
+                }
         }
     }
 
