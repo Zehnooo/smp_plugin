@@ -10,7 +10,7 @@ public enum RelicType {
     AXECALIBUR(Material.NETHERITE_AXE, "Axe of Perun", "Landing a crit grants the target temporary weakness.", PotionEffectType.WEAKNESS, 20 * 3, 1, RelicTrigger.CRIT, RelicTarget.VICTIM),
     PHASE_BOW(Material.BOW, "Gandiva", "Hitting an entity with an arrow will teleport you to that entity", null, 0, 0, RelicTrigger.HIT, RelicTarget.SELF),
     HORN_OF_HEALTH(Material.GOAT_HORN, "Horn of Plenty", "Activating this item grants the user temporary absorption.", PotionEffectType.ABSORPTION, 20 * 5, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.SELF),
-    THE_WARD(Material.SHIELD, "Aegis", "Successfully blocking an attack grants the user temporary resistance.", PotionEffectType.RESISTANCE, 20 * 6, 1, RelicTrigger.BLOCK, RelicTarget.SELF),
+    THE_WARD(Material.SHIELD, "Aegis", "Successfully blocking an attack grants the user temporary resistance.", PotionEffectType.RESISTANCE, 20 * 6, 1, RelicTrigger.HIT, RelicTarget.SELF),
     SLOWNESS_SHARD(Material.AMETHYST_SHARD, "Ymir's Shard", "Activating this item grants the nearest entity temporary slowness.", PotionEffectType.SLOWNESS, 20 * 3, 1, RelicTrigger.RIGHT_CLICK, RelicTarget.VICTIM),
     CLOAK(Material.ECHO_SHARD, "Tarnkappe", "Activating this item grants the user temporary invisibility", PotionEffectType.INVISIBILITY, 20 * 8, 0, RelicTrigger.RIGHT_CLICK, RelicTarget.SELF);
 
