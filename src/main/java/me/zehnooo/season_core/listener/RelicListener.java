@@ -5,6 +5,7 @@ import me.zehnooo.season_core.relic.RelicTarget;
 import me.zehnooo.season_core.relic.RelicTrigger;
 import me.zehnooo.season_core.relic.RelicType;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -51,18 +52,38 @@ public class RelicListener implements Listener {
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player) || !(event.getEntity() instanceof LivingEntity entity)) return;
-        boolean isCrit = event.isCritical();
+
         RelicType type = checkForRelic(player);
         if (type == null) return;
         if (type.trigger() != RelicTrigger.HIT && type.trigger() != RelicTrigger.CRIT) return;
-        if (type.trigger() == RelicTrigger.CRIT && isCrit && type.target() == RelicTarget.VICTIM ) {
-            entity.addPotionEffect( new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+
+        switch (type.displayName()){
+            case "Gandiva":
+                Location loc = getLocation(entity);
+                player.teleportAsync(loc)
+                        .thenAccept(res -> {
+                            if (!res) {
+                            player.sendMessage("Could not teleport to entity");
+                            } else {
+                                player.sendMessage("Teleported to " + entity.getName());
+                            }
+                        });
+                break;
+
+            case "Perun's Axe":
+                boolean isCrit = event.isCritical();
+                if (!isCrit) break;
+                entity.addPotionEffect( new PotionEffect(type.effect(), type.duration(), type.amplifier(), false, true, true));
+                break;
         }
-        player.sendMessage("Hit: " + isCrit + " vs " + entity);
     }
 
     private RelicType checkForRelic(Player player) {
         return relicManager.getType(player.getInventory().getItemInMainHand());
+    }
+
+    private Location getLocation(Entity entity) {
+        return new Location(entity.getWorld(), entity.getLocation().getX(), entity.getLocation().getY(), entity.getLocation().getZ());
     }
 
 }
