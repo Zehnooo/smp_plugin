@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -84,6 +85,12 @@ public final class RelicListener implements Listener {
         if (item == null) return;
 
         apply(item, player, null);
+    }
+
+    @EventHandler
+    public void onBowFire(EntityShootBowEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+
     }
 
     private void apply(ItemStack item, Player user, LivingEntity victim) {
