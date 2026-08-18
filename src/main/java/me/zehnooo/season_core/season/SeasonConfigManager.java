@@ -1,6 +1,6 @@
 package me.zehnooo.season_core.season;
 
-import me.zehnooo.season_core.Season_core;
+import me.zehnooo.season_core.SeasonCorePlugin;
 import org.bukkit.configuration.file.FileConfiguration;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -8,9 +8,9 @@ import java.time.format.DateTimeParseException;
 import java.time.DateTimeException;
 
 public class SeasonConfigManager {
-    private final Season_core plugin;
+    private final SeasonCorePlugin plugin;
 
-    public SeasonConfigManager(Season_core plugin) {
+    public SeasonConfigManager(SeasonCorePlugin plugin) {
         this.plugin = plugin;
     }
 

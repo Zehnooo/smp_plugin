@@ -1,6 +1,6 @@
 name: season_core
 version: '${version}'
-main: me.zehnooo.season_core.Season_core
+main: me.zehnooo.season_core.SeasonCorePlugin
 description: BangCraft SMP Plugin
 api-version: '26.2'
 load: POSTWORLD
@@ -8,3 +8,6 @@ commands:
   season:
     description: Season Description and World Status
     usage: /season
+  relic:
+    description: Relic admin commands
+    usage: /relic <give|check|destroy>

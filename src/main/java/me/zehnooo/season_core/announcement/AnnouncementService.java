@@ -1,7 +1,6 @@
 package me.zehnooo.season_core.announcement;
 
 import me.zehnooo.season_core.season.SeasonManager;
-import me.zehnooo.season_core.storage.DataManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 

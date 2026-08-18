@@ -1,8 +1,9 @@
 package me.zehnooo.season_core.relic;
 
-import me.zehnooo.season_core.Season_core;
+import me.zehnooo.season_core.SeasonCorePlugin;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -18,12 +19,12 @@ public final class RelicManager {
 
     private final NamespacedKey typeKey;
     private final NamespacedKey uuidKey;
-    private final NamespacedKey readyAtKey;
+    private final NamespacedKey arrowKey;
 
-    public RelicManager(Season_core plugin) {
+    public RelicManager(SeasonCorePlugin plugin) {
         this.typeKey = new NamespacedKey(plugin, "relic_type");
         this.uuidKey = new NamespacedKey(plugin, "relic_uuid");
-        this.readyAtKey = new NamespacedKey(plugin, "relic_ready_at");
+        this.arrowKey = new NamespacedKey(plugin, "relic_arrow");
     }
 
     public ItemStack create(RelicType type) {
@@ -66,32 +67,18 @@ public final class RelicManager {
         }
     }
 
-    public long remainingTime(ItemStack item) {
-        if (!isRelic(item)) return 0;
-        Long readyAt = item.getItemMeta().getPersistentDataContainer().get(readyAtKey, PersistentDataType.LONG);
-        if (readyAt == null) return 0;
-        return Math.max(0, readyAt - System.currentTimeMillis());
-    }
-
-    public long remainingSeconds(ItemStack item) {
-        return (remainingTime(item) + 999) / 1000;
-    }
-
-    public boolean tryUse(ItemStack item) {
-        RelicType type = getType(item);
-        if (type == null) return false;
-        if (type.cooldown() <= 0) return true;
-        if (remainingTime(item) > 0) return false;
-
-        ItemMeta meta = item.getItemMeta();
-        meta.getPersistentDataContainer().set(
-                readyAtKey, PersistentDataType.LONG, System.currentTimeMillis() + type.cooldown() * 50L);
-        item.setItemMeta(meta);
-        return true;
-    }
 
     private String read(ItemStack item, NamespacedKey key) {
         if (!isRelic(item)) return null;
         return item.getItemMeta().getPersistentDataContainer().get(key, PersistentDataType.STRING);
+    }
+
+    public void markPhaseArrow(AbstractArrow arrow) {
+        arrow.getPersistentDataContainer().set(arrowKey, PersistentDataType.STRING, RelicType.PHASE_BOW.name());
+    }
+
+    public boolean isPhaseArrow(AbstractArrow arrow) {
+        String raw = arrow.getPersistentDataContainer().get(arrowKey, PersistentDataType.STRING);
+        return RelicType.PHASE_BOW.name().equals(raw);
     }
 }
