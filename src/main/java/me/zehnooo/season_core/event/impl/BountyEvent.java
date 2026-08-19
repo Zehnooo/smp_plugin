@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
 public final class BountyEvent extends AbstractEvent {
 
     private static final int KILL = 3;
@@ -33,7 +34,7 @@ public final class BountyEvent extends AbstractEvent {
 
     @Override
     public RelicType prize() {
-        return RelicType.PHASE_BOW;
+        return RelicType.randomPrize();
     }
 
     @Override

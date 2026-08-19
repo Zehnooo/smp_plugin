@@ -1,9 +1,6 @@
 package me.zehnooo.season_core.relic;
 
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -45,28 +42,17 @@ public final class RelicListener implements Listener {
     public void onPlayerAttack(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof LivingEntity entity)) return;
 
-        Player player;
-        boolean fromArrow = false;
-        if (event.getDamager() instanceof Player damager) {
-            player = damager;
-        } else if (event.getDamager() instanceof AbstractArrow arrow && arrow.getShooter() instanceof Player shooter) {
-            player = shooter;
-            fromArrow = true;
-        } else {
+        if (event.getDamager() instanceof AbstractArrow arrow && arrow.getShooter() instanceof Player shooter && relicManager.isPhaseArrow(arrow)) {
+            if (!consume(shooter, RelicType.PHASE_BOW)) return;
+            shooter.teleportAsync(entity.getLocation());
             return;
         }
 
+        if (!(event.getDamager() instanceof Player player)) return;
         ItemStack item = mainHand(player);
         RelicType type = relicManager.getType(item);
+
         if (type == null) return;
-
-        if (type == RelicType.PHASE_BOW) {
-            if (!fromArrow) return;
-            if (!consume(player, type)) return;
-            player.teleportAsync(entity.getLocation());
-            return;
-        }
-
         if (type.trigger() == RelicTrigger.CRIT && !event.isCritical()) return;
         if (type.trigger() != RelicTrigger.HIT && type.trigger() != RelicTrigger.CRIT) return;
 
@@ -77,6 +63,7 @@ public final class RelicListener implements Listener {
     public void onPlayerDamage(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         if (!player.isBlocking()) return;
+        if (!(event.getDamage() <= 0)) return;
 
         ItemStack item = findWard(player);
         if (item == null) return;
@@ -86,8 +73,11 @@ public final class RelicListener implements Listener {
 
     @EventHandler
     public void onBowFire(EntityShootBowEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
-
+        if (!(event.getEntity() instanceof Player)) return;
+        if (relicManager.getType(event.getBow()) != RelicType.PHASE_BOW) return;
+        if (event.getProjectile() instanceof AbstractArrow arrow) {
+            relicManager.markPhaseArrow(arrow);
+        }
     }
 
     private void apply(ItemStack item, Player user, LivingEntity victim) {
@@ -99,6 +89,8 @@ public final class RelicListener implements Listener {
             user.sendMessage("Could not find a target.");
             return;
         }
+        if (target == victim && victim instanceof Tameable tameable && tameable.getOwner() != null) { return; }
+        if (target == victim && victim instanceof ArmorStand) { return; }
         if (!consume(user, type)) return;
 
         target.addPotionEffect(new PotionEffect(

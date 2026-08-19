@@ -36,6 +36,10 @@ public enum RelicType {
         this.cooldown = cooldown;
     }
 
+    public static RelicType randomPrize(){
+        return values()[(int)(Math.random() * values().length)];
+    }
+
     public Material material() {
         return material;
     }

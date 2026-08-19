@@ -12,18 +12,14 @@ import org.bukkit.inventory.ItemStack;
 public final class SeasonCommand implements CommandExecutor {
 
     private final SeasonManager seasonManager;
-    private final RelicManager relicManager;
 
-    public SeasonCommand(SeasonManager seasonManager, RelicManager relicManager) {
+
+    public SeasonCommand(SeasonManager seasonManager) {
         this.seasonManager = seasonManager;
-        this.relicManager = relicManager;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length >= 1 && args[0].equalsIgnoreCase("relic")) {
-            return handleRelic(sender, args);
-        }
 
         if (args.length == 0) {
             sender.sendMessage("KirkCraft Season 1");
@@ -38,36 +34,5 @@ public final class SeasonCommand implements CommandExecutor {
         return true;
     }
 
-    private boolean handleRelic(CommandSender sender, String[] args) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage("You must be a player to use this command!");
-            return true;
-        }
 
-        if (args.length == 1) {
-            player.sendMessage("Usage: /season relic <check|give>");
-            return true;
-        }
-
-        if (args[1].equalsIgnoreCase("check")) {
-            ItemStack hand = player.getInventory().getItemInMainHand();
-            player.sendMessage("Relic: " + relicManager.isRelic(hand));
-            player.sendMessage("Type: " + relicManager.getType(hand));
-            if (relicManager.isRelic(hand)) {
-                player.sendMessage("Cooldown: " + relicManager.remainingSeconds(hand) + "s");
-            }
-            return true;
-        }
-
-        if (args[1].equalsIgnoreCase("give")) {
-            for (RelicType type : RelicType.values()) {
-                player.getInventory().addItem(relicManager.create(type));
-            }
-            player.sendMessage("Gave all relics.");
-            return true;
-        }
-
-        player.sendMessage("Usage: /season relic <check|give>");
-        return true;
-    }
 }

@@ -43,7 +43,7 @@ public final class SeasonCorePlugin extends JavaPlugin {
         register(new RelicDestroyListener(relicItems, registry));
 
         // commands
-        setExecutor("season", new SeasonCommand(seasons, relicItems));
+        setExecutor("season", new SeasonCommand(seasons));
         setExecutor("relic", new RelicCommand(relics, relicItems, registry));
         setExecutor("event", new EventCommand(events));
 
