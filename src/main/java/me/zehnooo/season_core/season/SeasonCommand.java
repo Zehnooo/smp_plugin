@@ -1,13 +1,9 @@
 package me.zehnooo.season_core.season;
 
-import me.zehnooo.season_core.relic.RelicManager;
-import me.zehnooo.season_core.relic.RelicType;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NonNull;
 
 public final class SeasonCommand implements CommandExecutor {
 
@@ -19,7 +15,7 @@ public final class SeasonCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, String[] args) {
 
         if (args.length == 0) {
             sender.sendMessage("KirkCraft Season 1");
